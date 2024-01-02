@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.erp.binding.LoginForm;
 import com.erp.binding.SignUpForm;
+import com.erp.constatnt.AppConstant;
 import com.erp.entity.SignUpEntity;
 import com.erp.repository.SignUpRepo;
 import com.erp.service.SignUpService;
@@ -30,12 +31,12 @@ public class SignUpServiceImpl implements SignUpService{
 	            SignUpEntity entity = new SignUpEntity();
 	            BeanUtils.copyProperties(form, entity);
 	            repo.save(entity);
-	            return "Signup successful";
+	            return AppConstant.STR_SIGNUP_SUCESS;
 	        } else {
-	            return "Email already exists";
+	            return AppConstant.STR_EXIST_EMAIL;
 	        }
 	    }
-	    return "Password and confirm password do not match";
+	    return AppConstant.INVALID_PZZWD_AND_CONFIRMPZZWD;
 	}
 
 
@@ -59,8 +60,8 @@ public class SignUpServiceImpl implements SignUpService{
 		if (findByEmail == null) {
 			return false;
 		}
-		String subject = "recover password";
-		String body = "your password::" + findByEmail.getPassword();
+		String subject = AppConstant.RECOVER_PAZZWD;
+		String body = AppConstant.STR_MY_PAZZWD + findByEmail.getPassword();
 		emailUtil.sendEmail(email, subject, body);
 		return true;
 

@@ -1,5 +1,7 @@
 package com.erp.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -10,6 +12,8 @@ import jakarta.mail.internet.MimeMessage;
 
 @Component
 public class EmailUtils {
+	
+	 private  Logger logger =LoggerFactory.getLogger(EmailUtils.class);
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -30,7 +34,7 @@ public class EmailUtils {
 			
 		} catch (MessagingException e) {
 			
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return isSent;
 		

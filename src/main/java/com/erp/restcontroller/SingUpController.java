@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erp.binding.LoginForm;
 import com.erp.binding.SignUpForm;
+import com.erp.constatnt.AppConstant;
 import com.erp.service.SignUpService;
 
 import jakarta.validation.Valid;
@@ -33,9 +34,9 @@ public class SingUpController {
 	public ResponseEntity<String> login(@RequestBody LoginForm form) {
 		Boolean status = service.login(form);
 		if (status) {
-			return new ResponseEntity<String>("login succsessful", HttpStatus.OK);
+			return new ResponseEntity<String>(AppConstant.LOGIN_SUCCES, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("invalid credential", HttpStatus.OK);
+			return new ResponseEntity<String>(AppConstant.INVALID_CREDENTIAL, HttpStatus.OK);
 		}
 	}
 
@@ -43,10 +44,10 @@ public class SingUpController {
 	public ResponseEntity<String> forgetPwd(@PathVariable String email) {
 		Boolean status = service.forgetpassword(email);
 		if (status) {
-			return new ResponseEntity<>("Password reset initiated. Check your email for further instructions.",
+			return new ResponseEntity<>(AppConstant.CHECK_EMAIL,
 					HttpStatus.OK);
 		}
-		return new ResponseEntity<>("Invalid Email. User not found.", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(AppConstant.INVALID_EMAIL, HttpStatus.NOT_FOUND);
 	}
 
 }
